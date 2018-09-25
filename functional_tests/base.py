@@ -36,7 +36,6 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for(self, fn):
         start_time = time.time()
         while True:
-            print("try")
             try:
                 return fn()
             except (AssertionError, WebDriverException) as e:
