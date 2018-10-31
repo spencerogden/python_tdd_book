@@ -3,6 +3,6 @@ from sniffer.api import runnable
 
 @runnable
 def execute_tests(*args):
-    fn = [ 'python', 'manage.py', 'test','lists' ]
+    fn = [ 'python', 'manage.py', 'test','lists','accounts' ]
     fn += args[1:]
     return call(fn) == 0
