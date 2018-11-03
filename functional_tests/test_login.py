@@ -5,8 +5,9 @@ import re
 
 from .base import FunctionalTest
 
-TEST_EMAIL = 'edith@example.com'
+TEST_EMAIL = 'spencer@spencerogden.com'
 SUBJECT = 'Your login link for Superlists'
+
 
 class LoginTest(FunctionalTest):
     def test_can_get_email_link_to_log_in(self):
@@ -24,15 +25,13 @@ class LoginTest(FunctionalTest):
         ))
         
         # She checks her email and finds a message
-        email = mail.outbox[0]
-        self.assertIn(TEST_EMAIL, email.to)
-        self.assertEqual(email.subject, SUBJECT)
+        body = self.wait_for_email(TEST_EMAIL,SUBJECT)
         
         # It has a url link in it
-        self.assertIn('Use this link to log in',email.body)
-        url_search = re.search(r'http://.+/.+$',email.body)
+        self.assertIn('Use this link to log in',body)
+        url_search = re.search(r'http://.+/.+$',body)
         if not url_search:
-            self.fail(r'Cou;d not find url in email body:\n{email.body}')
+            self.fail(r'Could not find url in email body:\n{body}')
         url = url_search.group(0)
         self.assertIn(self.live_server_url, url)
         
