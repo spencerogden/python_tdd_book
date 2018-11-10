@@ -42,8 +42,6 @@ class MyListsTest(FunctionalTest):
     def test_logged_in_users_lists_are_saved_as_my_lists(self):
         # Edith is a logged-in user
         self.create_pre_authenticated_session('edith@example.com')
-        print('got session')
-        
         
         # She goes to the home page and starts a list
         self.browser.get(self.live_server_url)
@@ -82,6 +80,6 @@ class MyListsTest(FunctionalTest):
         # She logs out. The "My lists" option disappears
         self.browser.find_element_by_link_text('Log out').click()
         self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_link_text('My lists'),
+            self.browser.find_elements_by_link_text('My lists'),
             []
         ))
