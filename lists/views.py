@@ -15,7 +15,15 @@ def home_page(request):
 def new_list(request):
 	form = NewListForm(data=request.POST)
 	if form.is_valid():
+<<<<<<< HEAD
 		list_ = form.save(owner=request.user)
+=======
+		list_ = List()
+		if request.user.is_authenticated:
+			list_.owner = request.user
+		list_.save()
+		form.save(for_list=list_)
+>>>>>>> 14ca6cb368365b15109db2aa2c746c074d63e7bd
 		return redirect(list_)
 	return render(request, 'home.html',{'form':form})
 
